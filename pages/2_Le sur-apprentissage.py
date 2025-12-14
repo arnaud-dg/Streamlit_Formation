@@ -58,8 +58,8 @@ DEFAULTS = {
     "degree": 1,
     "frame_time": 0.5,
     "is_playing": False,
-    "show_val": True,          # ✅ visible par défaut
-    "show_spline_left": False  # ❌ non visible par défaut
+    "show_val": False,
+    "show_spline_left": False
 }
 
 for k, v in DEFAULTS.items():
@@ -95,7 +95,7 @@ if st.session_state.is_playing:
 
 # ------------------------- Contrôles -------------------------
 if "show_val" not in st.session_state:
-    st.session_state.show_val = True
+    st.session_state.show_val = False
 if "show_spline_left" not in st.session_state:
     st.session_state.show_spline_left = False
 
@@ -155,9 +155,9 @@ def draw_left(deg: int):
     # Points Val (optionnels)
     if st.session_state.show_val:
         fig.add_trace(go.Scatter(
-            x=x_val, y=y_val, mode="markers", name="Val",
+            x=x_val, y=y_val, mode="markers", name="Tuning",
             marker=dict(size=8, color="#ff7f0e"),
-            hovertemplate="Val<br>x=%{x:.2f}<br>y=%{y:.2f}<extra></extra>"
+            hovertemplate="Tuning<br>x=%{x:.2f}<br>y=%{y:.2f}<extra></extra>"
         ))
 
     if st.session_state.show_spline_left:
@@ -181,18 +181,18 @@ def draw_left(deg: int):
     else:
         # --- Modèle polynomial (si spline masquée) ---
         fig.add_trace(go.Scatter(
-            x=x_grid, y=y_hat_grid, mode="lines", name="Modèle polynomial",
+            x=x_grid, y=y_hat_grid, mode="lines", name="Modèle",
             line=dict(width=3, color="#2ca02c"),
             hoverinfo="skip"
         ))
 
     fig.update_layout(
         template="ggplot2",
-        title="Modélisation (régression polynomiale)",
+        title="Mécanisme d'apprentissage",
         xaxis_title="X", yaxis_title="y",
         margin=dict(l=10, r=10, t=60, b=10), height=540,
         legend=dict(
-            x=0.02, y=0.02, xanchor="left", yanchor="bottom",
+            x=0.98, y=0.02, xanchor="right", yanchor="bottom",
             bgcolor="rgba(255,255,255,0.6)", bordercolor="rgba(0,0,0,0)"
         )
     )
@@ -216,12 +216,12 @@ def draw_right():
     # Courbe Val (affichable/masquable)
     if st.session_state.show_val:
         fig.add_trace(go.Scatter(
-            x=degrees, y=va, mode="lines+markers", name="Val error",
+            x=degrees, y=va, mode="lines+markers", name="Tuning error",
             line=dict(width=3, color="#ff7f0e")
         ))
     fig.update_layout(
         template="ggplot2",
-        title="Visualisation de l'erreur (Train vs Val) au cours du temps",
+        title="Visualisation de l'erreur (Train vs Tuning) au cours du temps",
         xaxis_title="Durée d'apprentissage",
         yaxis_title="Erreur quadratique moyenne (MSE)",
         margin=dict(l=10, r=10, t=60, b=10), height=540,

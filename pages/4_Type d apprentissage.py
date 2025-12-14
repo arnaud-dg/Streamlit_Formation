@@ -333,20 +333,20 @@ with TABS[1]:
         mae = mean_absolute_error(y_test, y_pred)
         r2 = r2_score(y_test, y_pred)
 
-        m1, m2, m3 = st.columns(3)
-        m1.metric("RMSE", f"{rmse:.3f}")
-        m2.metric("MAE", f"{mae:.3f}")
-        m3.metric("R²", f"{r2:.3f}")
+        # m1, m2, m3 = st.columns(3)
+        # m1.metric("RMSE", f"{rmse:.3f}")
+        # m2.metric("MAE", f"{mae:.3f}")
+        # m3.metric("R²", f"{r2:.3f}")
 
-        fig_sc = go.Figure()
-        fig_sc.add_trace(go.Scatter(x=y_test, y=y_pred, mode="markers", name="Points"))
-        mn, mx = float(min(y_test.min(), y_pred.min())), float(max(y_test.max(), y_pred.max()))
-        fig_sc.add_trace(go.Scatter(x=[mn, mx], y=[mn, mx], mode="lines", name="Idéal", line=dict(dash="dash")))
-        fig_sc.update_layout(title="Vrai vs Prédit", xaxis_title="Vrai", yaxis_title="Prédit",
-                             height=420, margin=dict(l=10, r=10, t=40, b=10))
-        st.plotly_chart(fig_sc, use_container_width=True)
+        # fig_sc = go.Figure()
+        # fig_sc.add_trace(go.Scatter(x=y_test, y=y_pred, mode="markers", name="Points"))
+        # mn, mx = float(min(y_test.min(), y_pred.min())), float(max(y_test.max(), y_pred.max()))
+        # fig_sc.add_trace(go.Scatter(x=[mn, mx], y=[mn, mx], mode="lines", name="Idéal", line=dict(dash="dash")))
+        # fig_sc.update_layout(title="Vrai vs Prédit", xaxis_title="Vrai", yaxis_title="Prédit",
+        #                      height=420, margin=dict(l=10, r=10, t=40, b=10))
+        # st.plotly_chart(fig_sc, use_container_width=True)
 
-        st.divider()
+        # st.divider()
         # Fenêtre "Nouvelles données" réduite + moyennes par Produit
         new_vals = make_new_lot_form_reduced("reg", df)
         if new_vals is not None:
